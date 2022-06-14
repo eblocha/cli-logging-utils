@@ -1,5 +1,5 @@
 import logging
-from cli_logging_utils import (
+from pretty_log import (
     logging_context,
     create_file_handler,
     create_console_handler,

@@ -1,6 +1,6 @@
-# CLI Logging Utils
+# Pretty Log
 
-A collection of logging utilities for Python CLI applications.
+A collection of logging utilities to prettify logs in Python applications.
 
 ## Usage
 
@@ -8,7 +8,7 @@ The most basic usage:
 
 ```py
 import logging
-from cli_logging_utils import logging_context
+from pretty_log import logging_context
 
 if __name__ == "__main__":
 
@@ -17,9 +17,9 @@ if __name__ == "__main__":
 
 ```
 
-This will print pretty messages to the console, and does not log to a file:
+This will print pretty messages to the console, and does not log to a file.
 
-![example](images/example.png)
+By default, the console will log at INFO level.
 
 ## Recipes
 
@@ -27,7 +27,7 @@ This will print pretty messages to the console, and does not log to a file:
 
 ```py
 import logging
-from cli_logging_utils import (
+from pretty_log import (
     logging_context,
     create_file_handler,
     create_console_handler,
@@ -47,10 +47,15 @@ if __name__ == "__main__":
             logging.error("An error message")
             raise ValueError("A critical message from an exception")
         except Exception as exc:
+            # adding exc_info=True should not be done in production!
             logging.critical(str(exc), exc_info=True)
 ```
 
-This will produce output in `test.log`:
+This will print the following in the console:
+
+![example](images/example.png)
+
+And write output in `test.log`:
 
 ```log
 WARNING:2022-06-14 17:59:51,794:root:A warning message
@@ -67,7 +72,7 @@ You can pass a custom formatter to `create_console_formatter` which contains an 
 
 ```py
 import logging
-from cli_logging_utils import (
+from pretty_log import (
     cli_logging_context,
     create_file_handler,
     create_console_handler,
@@ -110,7 +115,7 @@ Creating your own handler is simple:
 
 ```py
 import logging
-from cli_logging_utils import PrettyExceptionFormatter
+from pretty_log import PrettyExceptionFormatter
 
 formatter = formatter or PrettyExceptionFormatter(
     "%(levelname)s:%(asctime)s:%(name)s:%(message)s", color=False
