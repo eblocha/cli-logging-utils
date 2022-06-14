@@ -1,6 +1,6 @@
 [run]
 branch=true
-source=dataprep
+source=pretty_log
 
 [report]
 exlude_lines = 
