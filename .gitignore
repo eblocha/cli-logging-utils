@@ -1,0 +1,11 @@
+/env
+/dist
+/build
+/coverage
+.vscode
+__pycache__
+
+*.egg-info
+
+.coverage
+*.log

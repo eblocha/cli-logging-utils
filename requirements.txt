@@ -1,0 +1,8 @@
+# dev dependencies
+black
+build
+coverage
+twine
+
+# package dependencies
+pretty-traceback
