@@ -7,19 +7,22 @@ A collection of logging utilities to prettify logs in Python applications.
 The most basic usage:
 
 ```py
-import logging
-from pretty_log import logging_context
-
-if __name__ == "__main__":
-
-    with logging_context():
-        ...
-
+from pretty_log import setup
+setup()
 ```
 
 This will print pretty messages to the console, and does not log to a file.
 
 By default, the console will log at INFO level.
+
+You can also use the context manager (recommended):
+
+```py
+from pretty_log import logging_context
+
+with logging_context():
+    ...
+```
 
 ## Recipes
 
