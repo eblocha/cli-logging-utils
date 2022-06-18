@@ -4,7 +4,6 @@ from .color import style
 from .context import LoggingContext, MultiContext, logging_context
 from .formatters import (
     MultiFormatter,
-    PrettyExceptionFormatter,
     DEFAULT_FORMATS,
     DEFAULT_FORMATTERS,
     make_formatters,
@@ -14,6 +13,7 @@ from .formatters import (
     ERROR_FMT,
     CRITICAL_FMT,
 )
+from .decorator import prettify
 
 
 def setup(
@@ -37,7 +37,6 @@ __all__ = [
     "MultiContext",
     "logging_context",
     "MultiFormatter",
-    "PrettyExceptionFormatter",
     "DEFAULT_FORMATS",
     "DEFAULT_FORMATTERS",
     "make_formatters",
@@ -47,4 +46,5 @@ __all__ = [
     "ERROR_FMT",
     "CRITICAL_FMT",
     "setup",
+    "prettify",
 ]

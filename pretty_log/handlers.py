@@ -1,6 +1,7 @@
 import logging
 
-from .formatters import MultiFormatter, PrettyExceptionFormatter
+from .decorator import prettify
+from .formatters import MultiFormatter
 
 
 def create_console_handler(
@@ -16,9 +17,9 @@ def create_console_handler(
         The logging level to set the handler to
     formatter : logging.Formatter, default None
         Can be used to override the formatter.
-        If None, uses cli_logging_utils.MultiFormatter
+        If None, uses pretty_log.MultiFormatter
     """
-    formatter = formatter or MultiFormatter()
+    formatter = formatter or prettify(MultiFormatter, color=True, indent=4)()
 
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
@@ -45,8 +46,8 @@ def create_file_handler(
         Can be used to override the formatter.
         If None, uses cli_logging_utils.PrettyExceptionFormatter
     """
-    formatter = formatter or PrettyExceptionFormatter(
-        "%(levelname)s:%(asctime)s:%(name)s:%(message)s", color=False
+    formatter = formatter or prettify(logging.Formatter, color=False)(
+        "%(levelname)s:%(asctime)s:%(name)s:%(message)s"
     )
     file_handler = logging.FileHandler(path)
     file_handler.setFormatter(formatter)

@@ -93,6 +93,7 @@ from pretty_log import (
     DEFAULT_FORMATS,
     make_formatters,
     style,
+    prettify,
 )
 
 
@@ -109,7 +110,7 @@ if __name__ == "__main__":
         handlers=[
             create_console_handler(
                 level=logging.DEBUG,
-                formatter=MultiFormatter(formatters=my_formatters),
+                formatter=prettify(MultiFormatter)(formatters=my_formatters),
             ),
             create_file_handler("test.log"),
         ],
@@ -160,3 +161,26 @@ logging_context(...).__enter__()
 ```
 
 This can be useful for setting up the logging inside a `click` main function, for example.
+
+### Adding pretty exceptions
+
+This package provides a `prettify` class wrapper to prettify exceptions for a formatter:
+
+```py
+from pretty_log import prettify
+
+@prettify(color=True, indent=4)
+class MyFormatter(logging.Formatter)
+    ...
+```
+
+Or, just wrap the base formatter:
+
+```py
+from pretty_log import prettify
+import logging
+
+PrettyFormatter = prettify(logging.Formatter, color=True, indent=4)
+```
+
+`color` controls whether or not the exception text contains color. `indent` will indent the exception text underneath the log message.

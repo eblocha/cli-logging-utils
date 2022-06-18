@@ -6,10 +6,10 @@ from pretty_log import (
     create_console_handler,
     logging_context,
     MultiFormatter,
-    PrettyExceptionFormatter,
     DEFAULT_FORMATTERS,
     make_formatters,
 )
+from pretty_log.decorator import prettify
 
 # freeze to prevent the actual defaults from changing the test
 FORMATS = {
@@ -63,7 +63,7 @@ class TestMultiNoFormat(unittest.TestCase):
         self.logger = logging.getLogger(__name__)
         self.formatter = MultiFormatter({})
 
-        self.backup_formatter = PrettyExceptionFormatter()
+        self.backup_formatter = prettify(logging.Formatter)()
 
         self.ctx = logging_context(
             self.logger,
@@ -114,7 +114,7 @@ class TestMultiNone(unittest.TestCase):
 class TestPrettyExceptions(unittest.TestCase):
     def setUp(self) -> None:
         self.logger = logging.getLogger(__name__)
-        self.formatter = PrettyExceptionFormatter()
+        self.formatter = prettify(logging.Formatter, indent=4)()
         self.ctx = logging_context(
             self.logger,
             handlers=[
@@ -140,8 +140,8 @@ class TestPrettyExceptions(unittest.TestCase):
 class TestMultiplePrettyExceptions(unittest.TestCase):
     def setUp(self) -> None:
         self.logger = logging.getLogger(__name__)
-        self.with_color = PrettyExceptionFormatter()
-        self.without_color = PrettyExceptionFormatter(color=False)
+        self.with_color = prettify(logging.Formatter)()
+        self.without_color = prettify(logging.Formatter, color=False)()
         self.ctx = logging_context(
             self.logger,
             handlers=[
