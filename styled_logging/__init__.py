@@ -48,3 +48,5 @@ __all__ = [
     "setup",
     "prettify",
 ]
+
+__version__ = "0.0.1"
