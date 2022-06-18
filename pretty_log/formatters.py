@@ -2,8 +2,8 @@ import logging
 import typing as t
 
 from .decorator import prettify
-
 from .color import style
+from .types import TFormatter
 
 
 DEBUG_FMT = style("DEBUG", fg="cyan") + " | " + style("%(message)s", fg="cyan")
@@ -24,8 +24,6 @@ DEFAULT_FORMATS = {
     logging.CRITICAL: CRITICAL_FMT,
 }
 
-TFormatter = t.TypeVar("TFormatter", bound=logging.Formatter, covariant=True)
-
 
 def make_formatters(
     formats: t.Dict[int, str], cls: t.Union[t.Type[TFormatter], None] = None, **kwargs
@@ -42,7 +40,7 @@ def make_formatters(
     return {level: cls(fmt, **kwargs) for level, fmt in formats.items()}
 
 
-DEFAULT_FORMATTERS = make_formatters(DEFAULT_FORMATS)
+DEFAULT_FORMATTERS: t.Dict[int, logging.Formatter] = make_formatters(DEFAULT_FORMATS)
 
 
 class MultiFormatter(logging.Formatter):
@@ -59,8 +57,7 @@ class MultiFormatter(logging.Formatter):
     """
 
     def __init__(self, formatters: t.Dict[int, logging.Formatter] = None, **kwargs):
-        base_format = kwargs.pop("fmt", None)
-        super().__init__(base_format, **kwargs)
+        super().__init__(**kwargs)
 
         if formatters is None:
             formatters = DEFAULT_FORMATTERS

@@ -22,6 +22,7 @@ FORMATS = {
 
 FORMATTERS = make_formatters(FORMATS)
 
+
 class TestMultiFormatter(unittest.TestCase):
     def setUp(self) -> None:
         self.logger = logging.getLogger(__name__)

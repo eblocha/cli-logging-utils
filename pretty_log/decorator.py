@@ -4,8 +4,10 @@ import textwrap
 from typing import Type
 from pretty_traceback.formatting import exc_to_traceback_str
 
+from .types import TFormatter
 
-def prettify(cls: Type[logging.Formatter], color=True, indent=4):
+
+def prettify(cls: Type[TFormatter], color=True, indent=4) -> Type[TFormatter]:
     """Decorator to prettify a logging.Formatter exception output"""
 
     @functools.wraps(cls, updated=())
