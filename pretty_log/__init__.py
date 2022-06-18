@@ -2,7 +2,18 @@ import logging
 from .handlers import create_console_handler, create_file_handler
 from .color import style
 from .context import LoggingContext, MultiContext, logging_context
-from .formatters import MultiFormatter, PrettyExceptionFormatter, DEFAULT_FORMATS
+from .formatters import (
+    MultiFormatter,
+    PrettyExceptionFormatter,
+    DEFAULT_FORMATS,
+    DEFAULT_FORMATTERS,
+    make_formatters,
+    DEBUG_FMT,
+    INFO_FMT,
+    WARNING_FMT,
+    ERROR_FMT,
+    CRITICAL_FMT,
+)
 
 
 def setup(
@@ -28,5 +39,12 @@ __all__ = [
     "MultiFormatter",
     "PrettyExceptionFormatter",
     "DEFAULT_FORMATS",
+    "DEFAULT_FORMATTERS",
+    "make_formatters",
+    "DEBUG_FMT",
+    "INFO_FMT",
+    "WARNING_FMT",
+    "ERROR_FMT",
+    "CRITICAL_FMT",
     "setup",
 ]

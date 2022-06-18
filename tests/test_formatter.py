@@ -7,11 +7,12 @@ from pretty_log import (
     logging_context,
     MultiFormatter,
     PrettyExceptionFormatter,
-    DEFAULT_FORMATS as BASE_DEFAULTS,
+    DEFAULT_FORMATTERS,
+    make_formatters,
 )
 
 # freeze to prevent the actual defaults from changing the test
-DEFAULT_FORMATS = {
+FORMATS = {
     logging.DEBUG: "DEBUG | %(message)s",
     logging.INFO: "INFO | %(message)s",
     logging.WARNING: "WARNING | %(message)s",
@@ -19,11 +20,12 @@ DEFAULT_FORMATS = {
     logging.CRITICAL: "CRITICAL | %(message)s",
 }
 
+FORMATTERS = make_formatters(FORMATS)
 
 class TestMultiFormatter(unittest.TestCase):
     def setUp(self) -> None:
         self.logger = logging.getLogger(__name__)
-        self.formatter = MultiFormatter(DEFAULT_FORMATS)
+        self.formatter = MultiFormatter(FORMATTERS)
         self.ctx = logging_context(
             self.logger,
             handlers=[
@@ -37,7 +39,7 @@ class TestMultiFormatter(unittest.TestCase):
                 log("message")
 
             messages = [self.formatter.format(record) for record in cap.records]
-            expected = [DEFAULT_FORMATS[level] % {"message": "message"}]
+            expected = [FORMATS[level] % {"message": "message"}]
             self.assertListEqual(messages, expected)
 
     def test_debug(self):
@@ -84,7 +86,7 @@ class TestMultiNone(unittest.TestCase):
     def setUp(self) -> None:
         self.logger = logging.getLogger(__name__)
         self.formatter = MultiFormatter()
-        self.formatter_defaults = MultiFormatter(BASE_DEFAULTS)
+        self.formatter_defaults = MultiFormatter(DEFAULT_FORMATTERS)
 
         self.ctx = logging_context(
             self.logger,

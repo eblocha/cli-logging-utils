@@ -91,6 +91,7 @@ from pretty_log import (
     create_console_handler,
     MultiFormatter,
     DEFAULT_FORMATS,
+    make_formatters,
     style,
 )
 
@@ -102,11 +103,13 @@ if __name__ == "__main__":
         logging.INFO: style("INFO ", fg="white") + " | %(message)s",
     }
 
+    my_formatters = make_formatters(my_formats)
+
     with logging_context(
         handlers=[
             create_console_handler(
                 level=logging.DEBUG,
-                formatter=MultiFormatter(formats=my_formats),
+                formatter=MultiFormatter(formatters=my_formatters),
             ),
             create_file_handler("test.log"),
         ],
