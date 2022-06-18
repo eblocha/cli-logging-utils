@@ -31,7 +31,7 @@ with logging_context():
 With quick setup:
 ```py
 from pretty_log import setup
-setup("test.log")
+setup(filename="test.log")
 ```
 
 Or with more options:
