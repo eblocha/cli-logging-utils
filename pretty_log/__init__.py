@@ -1,13 +1,19 @@
+import logging
 from .handlers import create_console_handler, create_file_handler
 from .color import style
 from .context import LoggingContext, MultiContext, logging_context
 from .formatters import MultiFormatter, PrettyExceptionFormatter, DEFAULT_FORMATS
 
 
-def setup(filename: str = None):
-    handlers = [create_console_handler()]
+def setup(
+    console_level: int = logging.INFO,
+    filename: str = None,
+    file_level: int = logging.WARNING,
+):
+    """Quick logging setup. Supports setting log level, and logging to a file."""
+    handlers = [create_console_handler(level=console_level)]
     if filename:
-        handlers.append(create_file_handler(filename))
+        handlers.append(create_file_handler(filename, level=file_level))
 
     logging_context(handlers=handlers).__enter__()
 
