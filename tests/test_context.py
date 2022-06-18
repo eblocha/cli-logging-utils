@@ -1,6 +1,6 @@
 import logging
 import unittest
-from pretty_log import logging_context, create_console_handler, create_file_handler
+from styled_logging import logging_context, create_console_handler
 
 
 class TestLogContext(unittest.TestCase):

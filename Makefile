@@ -7,4 +7,4 @@ test:
 	coverage report
 
 format:
-	black pretty_log tests
+	black styled_logging tests

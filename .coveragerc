@@ -1,6 +1,6 @@
 [run]
 branch=true
-source=pretty_log
+source=styled_logging
 
 [report]
 exclude_lines = 

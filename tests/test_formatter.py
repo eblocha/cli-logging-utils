@@ -2,14 +2,14 @@ import logging
 from textwrap import dedent
 from typing import Callable
 import unittest
-from pretty_log import (
+from styled_logging import (
     create_console_handler,
     logging_context,
     MultiFormatter,
     DEFAULT_FORMATTERS,
     make_formatters,
 )
-from pretty_log.decorator import prettify
+from styled_logging.decorator import prettify
 
 # freeze to prevent the actual defaults from changing the test
 FORMATS = {

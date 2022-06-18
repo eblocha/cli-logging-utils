@@ -7,7 +7,7 @@ A collection of logging utilities to prettify logs in Python applications.
 The most basic usage:
 
 ```py
-from pretty_log import setup
+from styled_logging import setup
 setup()
 ```
 
@@ -18,7 +18,7 @@ By default, the console will log at INFO level.
 You can also use the context manager (recommended):
 
 ```py
-from pretty_log import logging_context
+from styled_logging import logging_context
 
 with logging_context():
     ...
@@ -31,7 +31,7 @@ with logging_context():
 With quick setup:
 
 ```py
-from pretty_log import setup
+from styled_logging import setup
 setup(filename="test.log")
 ```
 
@@ -39,7 +39,7 @@ Or with more options:
 
 ```py
 import logging
-from pretty_log import (
+from styled_logging import (
     logging_context,
     create_file_handler,
     create_console_handler,
@@ -86,7 +86,7 @@ You can pass a custom formatter to `create_console_formatter` which contains an 
 
 ```py
 import logging
-from pretty_log import (
+from styled_logging import (
     cli_logging_context,
     create_file_handler,
     create_console_handler,
@@ -135,7 +135,7 @@ Creating your own handler is simple:
 
 ```py
 import logging
-from pretty_log import prettify
+from styled_logging import prettify
 
 formatter = prettify(logging.Formatter, color=False)(
     "%(levelname)s:%(asctime)s:%(name)s:%(message)s"
@@ -168,7 +168,7 @@ This can be useful for setting up the logging inside a `click` main function, fo
 This package provides a `prettify` class wrapper to prettify exceptions for a formatter:
 
 ```py
-from pretty_log import prettify
+from styled_logging import prettify
 
 @prettify(color=True, indent=4)
 class MyFormatter(logging.Formatter)
@@ -178,7 +178,7 @@ class MyFormatter(logging.Formatter)
 Or, just wrap the base formatter:
 
 ```py
-from pretty_log import prettify
+from styled_logging import prettify
 import logging
 
 PrettyFormatter = prettify(logging.Formatter, color=True, indent=4)
