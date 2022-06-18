@@ -70,7 +70,8 @@ class MultiFormatter(PrettyExceptionFormatter):
         base_format = kwargs.pop("fmt", None)
         super().__init__(base_format, **kwargs)
 
-        formats = formats or DEFAULT_FORMATS
+        if formats is None:
+            formats = DEFAULT_FORMATS
 
         self.formatters = {
             level: PrettyExceptionFormatter(fmt, **kwargs)

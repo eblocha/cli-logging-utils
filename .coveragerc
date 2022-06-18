@@ -3,7 +3,7 @@ branch=true
 source=pretty_log
 
 [report]
-exlude_lines = 
+exclude_lines = 
   pragma: no cover
   
   raise AssertionError

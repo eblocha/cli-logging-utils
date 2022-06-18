@@ -74,7 +74,10 @@ def logging_context(
     console_handler = console_handler or create_console_handler()
     extra_handlers = extra_handlers or []
 
-    min_level = min(console_handler.level, min(h.level for h in extra_handlers))
+    if extra_handlers:
+        min_level = min(console_handler.level, min(h.level for h in extra_handlers))
+    else:
+        min_level = console_handler.level
 
     contexts = [
         LoggingContext(logger=logger, level=min_level),
