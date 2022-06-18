@@ -85,8 +85,7 @@ def logging_context(
     ]
 
     contexts.extend(
-        LoggingContext(logger=logger, handler=handler)
-        for handler in extra_handlers
+        LoggingContext(logger=logger, handler=handler) for handler in extra_handlers
     )
 
     return MultiContext(*contexts)

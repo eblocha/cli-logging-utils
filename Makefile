@@ -6,3 +6,5 @@ test:
 	coverage html
 	coverage report
 
+format:
+	black pretty_log tests

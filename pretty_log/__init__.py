@@ -11,6 +11,7 @@ def setup(filename: str = None):
 
     logging_context(extra_handlers=extra_handlers).__enter__()
 
+
 __all__ = [
     "create_console_handler",
     "create_file_handler",

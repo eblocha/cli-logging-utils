@@ -2,6 +2,7 @@ import logging
 
 from .formatters import MultiFormatter, PrettyExceptionFormatter
 
+
 def create_console_handler(
     level: int = logging.INFO,
     formatter: logging.Formatter = None,
@@ -33,7 +34,7 @@ def create_file_handler(
 ):
     """
     Create a file handler to log messages to a file
-    
+
     Parameters
     ----------
     path : path-like
