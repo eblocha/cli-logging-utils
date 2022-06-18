@@ -46,7 +46,7 @@ def create_file_handler(
         Can be used to override the formatter.
         If None, uses cli_logging_utils.PrettyExceptionFormatter
     """
-    formatter = formatter or prettify(logging.Formatter, color=False)(
+    formatter = formatter or prettify(logging.Formatter, color=False, indent=4)(
         "%(levelname)s:%(asctime)s:%(name)s:%(message)s"
     )
     file_handler = logging.FileHandler(path)

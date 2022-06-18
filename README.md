@@ -29,6 +29,7 @@ with logging_context():
 ### Logging to a file
 
 With quick setup:
+
 ```py
 from pretty_log import setup
 setup(filename="test.log")
@@ -134,10 +135,10 @@ Creating your own handler is simple:
 
 ```py
 import logging
-from pretty_log import PrettyExceptionFormatter
+from pretty_log import prettify
 
-formatter = formatter or PrettyExceptionFormatter(
-    "%(levelname)s:%(asctime)s:%(name)s:%(message)s", color=False
+formatter = prettify(logging.Formatter, color=False)(
+    "%(levelname)s:%(asctime)s:%(name)s:%(message)s"
 )
 # rotate the file every day
 file_handler = logging.handlers.TimedRotatingFileHandler(path, when="D")
