@@ -26,7 +26,9 @@ class TestMultiFormatter(unittest.TestCase):
         self.formatter = MultiFormatter(DEFAULT_FORMATS)
         self.ctx = logging_context(
             self.logger,
-            handlers=[create_console_handler(level=logging.DEBUG, formatter=self.formatter)],
+            handlers=[
+                create_console_handler(level=logging.DEBUG, formatter=self.formatter)
+            ],
         )
 
     def run_level(self, level: int, log: Callable[[str], None]):
@@ -63,7 +65,9 @@ class TestMultiNoFormat(unittest.TestCase):
 
         self.ctx = logging_context(
             self.logger,
-            handlers=[create_console_handler(level=logging.DEBUG, formatter=self.formatter)],
+            handlers=[
+                create_console_handler(level=logging.DEBUG, formatter=self.formatter)
+            ],
         )
 
     def test_log(self):
@@ -84,7 +88,9 @@ class TestMultiNone(unittest.TestCase):
 
         self.ctx = logging_context(
             self.logger,
-            handlers=[create_console_handler(level=logging.DEBUG, formatter=self.formatter)],
+            handlers=[
+                create_console_handler(level=logging.DEBUG, formatter=self.formatter)
+            ],
         )
 
     def test_log(self):
@@ -109,7 +115,9 @@ class TestPrettyExceptions(unittest.TestCase):
         self.formatter = PrettyExceptionFormatter()
         self.ctx = logging_context(
             self.logger,
-            handlers=[create_console_handler(level=logging.DEBUG, formatter=self.formatter)],
+            handlers=[
+                create_console_handler(level=logging.DEBUG, formatter=self.formatter)
+            ],
         )
 
     def test_indents_exception(self):
@@ -138,7 +146,7 @@ class TestMultiplePrettyExceptions(unittest.TestCase):
                 create_console_handler(level=logging.DEBUG, formatter=self.with_color),
                 create_console_handler(
                     level=logging.DEBUG, formatter=self.without_color
-                )
+                ),
             ],
         )
 
