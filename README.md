@@ -127,8 +127,6 @@ formatter = formatter or PrettyExceptionFormatter(
 file_handler = logging.handlers.TimedRotatingFileHandler(path, when="D")
 file_handler.setFormatter(formatter)
 file_handler.setLevel(level)
-
-return file_handler
 ```
 
 Then, use the custom handler:
