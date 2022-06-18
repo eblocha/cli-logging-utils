@@ -1,6 +1,12 @@
-# Pretty Log
+# Styled Logging
 
 A collection of logging utilities to prettify logs in Python applications.
+
+## Install
+
+```
+pip install styled-logging
+```
 
 ## Usage
 
