@@ -52,10 +52,17 @@ class MultiContext:
             ctx.__exit__(*exc_info)
 
 
+def create_base_context(
+    handlers: Sequence[logging.Handler],
+    logger: logging.Logger = None,
+):
+    """Create a base logging context to set the minimum log level between multiple handlers"""
+    return LoggingContext(logger=logger, level=min(h.level for h in handlers))
+
+
 def logging_context(
     logger: logging.Logger = None,
-    console_handler: logging.Handler = None,
-    extra_handlers: Sequence[logging.Handler] = None,
+    handlers: Sequence[logging.Handler] = None,
 ):
     """
     Create a logging context
@@ -64,28 +71,19 @@ def logging_context(
     ----------
     logger : logging.Logger, default None
         The logger to configure, defaults to the root logger
-    console_handler : logging.Handler = None
-        The handler to use for printing to the console.
-        If None, creates a hander with the default parameters.
-    extra_handlers : sequence logging.Handler, default None
-        Additional handlers to use
+
+    handlers : sequence logging.Handler, default None
+        logging handlers to use
+        Create a console handler with create_console_handler
         Create a file handler with cli_logging_utils.create_file_handler
+        If None, creates a console handler with default values.
     """
-    console_handler = console_handler or create_console_handler()
-    extra_handlers = extra_handlers or []
+    handlers = handlers or [create_console_handler()]
 
-    if extra_handlers:
-        min_level = min(console_handler.level, min(h.level for h in extra_handlers))
-    else:
-        min_level = console_handler.level
-
-    contexts = [
-        LoggingContext(logger=logger, level=min_level),
-        LoggingContext(logger=logger, handler=console_handler, close=False),
-    ]
+    contexts = [create_base_context(handlers, logger)]
 
     contexts.extend(
-        LoggingContext(logger=logger, handler=handler) for handler in extra_handlers
+        LoggingContext(logger=logger, handler=handler) for handler in handlers
     )
 
     return MultiContext(*contexts)

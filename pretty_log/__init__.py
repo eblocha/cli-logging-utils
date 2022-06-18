@@ -5,11 +5,11 @@ from .formatters import MultiFormatter, PrettyExceptionFormatter, DEFAULT_FORMAT
 
 
 def setup(filename: str = None):
-    extra_handlers = []
+    handlers = [create_console_handler()]
     if filename:
-        extra_handlers.append(create_file_handler(filename))
+        handlers.append(create_file_handler(filename))
 
-    logging_context(extra_handlers=extra_handlers).__enter__()
+    logging_context(handlers=handlers).__enter__()
 
 
 __all__ = [

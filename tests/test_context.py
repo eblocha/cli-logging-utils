@@ -9,9 +9,7 @@ class TestLogContext(unittest.TestCase):
 
     def test_resets(self):
         logging.root.setLevel(logging.DEBUG)
-        with logging_context(
-            console_handler=create_console_handler(level=logging.INFO)
-        ):
+        with logging_context(handlers=[create_console_handler(level=logging.INFO)]):
             self.assertEqual(logging.root.level, logging.INFO)
 
         self.assertEqual(logging.root.level, logging.DEBUG)
@@ -20,7 +18,7 @@ class TestLogContext(unittest.TestCase):
         logging.root.setLevel(logging.DEBUG)
         self.logger.setLevel(logging.DEBUG)
         with logging_context(
-            self.logger, console_handler=create_console_handler(level=logging.INFO)
+            self.logger, handlers=[create_console_handler(level=logging.INFO)]
         ):
             self.assertEqual(logging.root.level, logging.DEBUG)
             self.assertEqual(self.logger.level, logging.INFO)
@@ -31,8 +29,10 @@ class TestLogContext(unittest.TestCase):
     def test_sets_to_lowest(self):
         logging.root.setLevel(logging.DEBUG)
         with logging_context(
-            console_handler=create_console_handler(level=logging.WARNING),
-            extra_handlers=[create_console_handler(level=logging.INFO)],
+            handlers=[
+                create_console_handler(level=logging.WARNING),
+                create_console_handler(level=logging.INFO),
+            ],
         ):
             self.assertEqual(logging.root.level, logging.INFO)
 

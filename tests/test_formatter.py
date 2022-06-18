@@ -26,7 +26,7 @@ class TestMultiFormatter(unittest.TestCase):
         self.formatter = MultiFormatter(DEFAULT_FORMATS)
         self.ctx = logging_context(
             self.logger,
-            create_console_handler(level=logging.DEBUG, formatter=self.formatter),
+            handlers=[create_console_handler(level=logging.DEBUG, formatter=self.formatter)],
         )
 
     def run_level(self, level: int, log: Callable[[str], None]):
@@ -63,7 +63,7 @@ class TestMultiNoFormat(unittest.TestCase):
 
         self.ctx = logging_context(
             self.logger,
-            create_console_handler(level=logging.DEBUG, formatter=self.formatter),
+            handlers=[create_console_handler(level=logging.DEBUG, formatter=self.formatter)],
         )
 
     def test_log(self):
@@ -84,7 +84,7 @@ class TestMultiNone(unittest.TestCase):
 
         self.ctx = logging_context(
             self.logger,
-            create_console_handler(level=logging.DEBUG, formatter=self.formatter),
+            handlers=[create_console_handler(level=logging.DEBUG, formatter=self.formatter)],
         )
 
     def test_log(self):
@@ -106,10 +106,10 @@ class TestMultiNone(unittest.TestCase):
 class TestPrettyExceptions(unittest.TestCase):
     def setUp(self) -> None:
         self.logger = logging.getLogger(__name__)
-        self.with_color = PrettyExceptionFormatter()
+        self.formatter = PrettyExceptionFormatter()
         self.ctx = logging_context(
             self.logger,
-            create_console_handler(level=logging.DEBUG, formatter=self.with_color),
+            handlers=[create_console_handler(level=logging.DEBUG, formatter=self.formatter)],
         )
 
     def test_indents_exception(self):
@@ -121,7 +121,7 @@ class TestPrettyExceptions(unittest.TestCase):
                 except Exception as e:
                     self.logger.critical(str(e), exc_info=True)
 
-            formatted = self.with_color.format(cap.records[0])
+            formatted = self.formatter.format(cap.records[0])
             lines = formatted.splitlines()
             exc_info = "\n".join(lines[1:])
             self.assertNotEqual(exc_info, dedent(exc_info))
@@ -134,8 +134,8 @@ class TestMultiplePrettyExceptions(unittest.TestCase):
         self.without_color = PrettyExceptionFormatter(color=False)
         self.ctx = logging_context(
             self.logger,
-            create_console_handler(level=logging.DEBUG, formatter=self.with_color),
-            extra_handlers=[
+            handlers=[
+                create_console_handler(level=logging.DEBUG, formatter=self.with_color),
                 create_console_handler(
                     level=logging.DEBUG, formatter=self.without_color
                 )

@@ -28,6 +28,14 @@ with logging_context():
 
 ### Logging to a file
 
+With quick setup:
+```py
+from pretty_log import setup
+setup("test.log")
+```
+
+Or with more options:
+
 ```py
 import logging
 from pretty_log import (
@@ -40,8 +48,10 @@ from pretty_log import (
 if __name__ == "__main__":
 
     with logging_context(
-        console_handler=create_console_handler(level=logging.DEBUG),
-        extra_handlers=[create_file_handler("test.log")],
+        handlers=[
+            create_console_handler(level=logging.DEBUG),
+            create_file_handler("test.log"),
+        ],
     ):
         try:
             logging.debug("A debug message")
@@ -93,11 +103,13 @@ if __name__ == "__main__":
     }
 
     with logging_context(
-        console_handler=create_console_handler(
-            level=logging.DEBUG,
-            formatter=MultiFormatter(formats=my_formats),
-        ),
-        extra_handlers=[create_file_handler("test.log")],
+        handlers=[
+            create_console_handler(
+                level=logging.DEBUG,
+                formatter=MultiFormatter(formats=my_formats),
+            ),
+            create_file_handler("test.log"),
+        ],
     ):
         try:
             logging.debug("A debug message")
@@ -132,7 +144,7 @@ file_handler.setLevel(level)
 Then, use the custom handler:
 
 ```py
-with logging_context(extra_handlers=[file_handler]):
+with logging_context(handlers=[file_handler]):
     ...
 ```
 
