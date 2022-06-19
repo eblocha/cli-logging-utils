@@ -169,6 +169,7 @@ class TestMultiplePrettyExceptions(unittest.TestCase):
 
             self.assertNotEqual(with_color, without_color)
 
+
 class TestMakeFormatter(unittest.TestCase):
     def test_custom_class(self):
         class MyFormatter(logging.Formatter):

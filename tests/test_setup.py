@@ -44,7 +44,7 @@ class TestSetupFile(unittest.TestCase):
 
                 self.assertIn("message", data)
                 self.assertIn("message", buf.getvalue().strip())
-    
+
     def test_changes_file_level(self):
         filename = "log.log"
         with io.StringIO() as buf, contextlib.redirect_stderr(buf):

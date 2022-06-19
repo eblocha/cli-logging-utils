@@ -40,7 +40,7 @@ class TestFileHandler(unittest.TestCase):
                 ]
             ):
                 logging.info("message")
-            
+
             with open(filename, "r") as f:
                 data = f.read().strip()
 
