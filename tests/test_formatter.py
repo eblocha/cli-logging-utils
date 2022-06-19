@@ -8,8 +8,9 @@ from styled_logging import (
     MultiFormatter,
     DEFAULT_FORMATTERS,
     make_formatters,
+    DEFAULT_FORMATS,
+    prettify,
 )
-from styled_logging.decorator import prettify
 
 # freeze to prevent the actual defaults from changing the test
 FORMATS = {
@@ -167,3 +168,14 @@ class TestMultiplePrettyExceptions(unittest.TestCase):
             without_color = self.without_color.format(cap.records[0])
 
             self.assertNotEqual(with_color, without_color)
+
+class TestMakeFormatter(unittest.TestCase):
+    def test_custom_class(self):
+        class MyFormatter(logging.Formatter):
+            pass
+
+        formatters = make_formatters(DEFAULT_FORMATS, MyFormatter)
+
+        for cls in formatters.values():
+            with self.subTest():
+                self.assertIsInstance(cls, MyFormatter)
