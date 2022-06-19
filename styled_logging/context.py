@@ -69,13 +69,13 @@ def logging_context(
 
     Parameters
     ----------
-    logger : logging.Logger, default None
+    `logger` : logging.Logger, default None
         The logger to configure, defaults to the root logger
 
-    handlers : sequence logging.Handler, default None
+    `handlers` : sequence logging.Handler, default None
         logging handlers to use
         Create a console handler with create_console_handler
-        Create a file handler with cli_logging_utils.create_file_handler
+        Create a file handler with styled_logging.create_file_handler
         If None, creates a console handler with default values.
     """
     handlers = handlers or [create_console_handler()]

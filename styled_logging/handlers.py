@@ -13,11 +13,11 @@ def create_console_handler(
 
     Parameters
     ----------
-    level : int, default logging.INFO
+    `level` : int, default logging.INFO
         The logging level to set the handler to
-    formatter : logging.Formatter, default None
+    `formatter` : logging.Formatter, default None
         Can be used to override the formatter.
-        If None, uses pretty_log.MultiFormatter
+        If None, uses styled_logging.MultiFormatter
     """
     formatter = formatter or prettify(MultiFormatter, color=True, indent=4)()
 
@@ -38,13 +38,14 @@ def create_file_handler(
 
     Parameters
     ----------
-    path : path-like
+    `path` : path-like
         The path to the log file
-    level : int, default logging.WARNING
+    `level` : int, default logging.WARNING
         Th logging level to set the handler to
-    formatter : logging.Formatter, default None
+    `formatter` : logging.Formatter, default None
         Can be used to override the formatter.
-        If None, uses cli_logging_utils.PrettyExceptionFormatter
+        If None, uses a prettified logging.Formatter with format:
+        `"%(levelname)s:%(asctime)s:%(name)s:%(message)s"`
     """
     formatter = formatter or prettify(logging.Formatter, color=False, indent=4)(
         "%(levelname)s:%(asctime)s:%(name)s:%(message)s"

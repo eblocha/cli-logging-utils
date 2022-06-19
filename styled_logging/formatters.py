@@ -30,8 +30,8 @@ def make_formatters(
 ) -> t.Dict[int, TFormatter]:
     """
     Create a mapping of level number to formatter, given:
-    - the formatter class
     - a mapping of level number to format string
+    - the formatter class
     - additonal kwargs to pass to the constructor
     """
     if cls is None:
@@ -49,10 +49,10 @@ class MultiFormatter(logging.Formatter):
 
     Parameters
     ----------
-    formatters : dict of int to logging.Formatter
+    `formatters` : dict of int to logging.Formatter
         This is a mapping of log level to its formatter.
         If a level is omitted, the base logging.Formatter will be used for that level.
-    kwargs : dict
+    `kwargs` : dict
         Keyword arguments to forward to logging.Formatter.
     """
 
